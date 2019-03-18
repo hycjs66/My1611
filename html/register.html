@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/toubu.css">
+    <style>
+        .login {
+            width: 100%;
+            height: 620px;
+            background-color: aqua;
+            background: url(../images/6.jpg) no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+        }
+
+        .login_1 {
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            position: absolute;
+            right: 200px;
+            top: 60px;
+            border-radius: 18px;
+        }
+
+        .login_a {
+            font-size: 24px;
+            line-height: 50px;
+            margin-top: 50px;
+        }
+
+        .login_2 {
+            width: 400px;
+            margin-left: 65px;
+        }
+
+        .login_2 input {
+            width: 370px;
+            height: 40px;
+            margin-top: 30px;
+        }
+
+        .login_2 button {
+            width: 200px;
+            height: 40px;
+            margin-top: 20px;
+            margin-left: 90px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 0, 0, .8);
+            background-color: red;
+            color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        <div class="center">
+            <div><a href="../index.html"><img src="../images/1.jpg" style="width: 55px; height: 55px;" title="我是logo"></a></div>
+            <ul class="daohang">
+                <li class="dh_1">
+                    <a href="#" class="dh_11">礼物分类</a>
+                    <ul class="dh_2">
+                        <li><a href="#">少女心饰</a></li>
+                        <li><a href="#">萌萌美物</a></li>
+                        <li><a href="#">为爱停留</a></li>
+                        <li><a href="#">潮流时尚</a></li>
+                        <li><a href="#">科技达人</a></li>
+                        <li><a href="#">幸福烙印</a></li>
+                    </ul>
+                </li>
+                <li class="top_1">
+                    <a href="#" class="top_11">送礼导航</a>
+                    <ul class="top_2">
+                        <li><a href="#">公主女票 </a></li>
+                        <li><a href="#">欧巴男票</a></li>
+                        <li><a href="#">潮爸辣妈</a></li>
+                        <li><a href="">兄弟闺蜜</a> </li>
+                        <li><a href="#">熊孩子</a></li>
+                        <li><a href="#">生意伙伴</a></li>
+                    </ul>
+                </li>
+                <li><a>创意礼物</a></li>
+                <li><a>新品上架</a></li>
+                <li><a>愚人节礼物</a></li>
+            </ul>
+            <div class="dv">
+                <img src="../images/7.png" alt="" class="img_1">
+                <div class="dv_1">
+                    <p><a href="../html/login.html">登录</a></p>
+                    <p><a href="#">注册</a></p>
+                </div>
+                <div class="zc">
+                    <img src="../images/8.png" alt="" class="img_2">
+                    <p class="shopp"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录 -->
+    <div class="login">
+        <div class="login_1">
+            <div class="login_2">
+                <div class="login_a">注册无忧账号 </div>
+                <input id="username" placeholder="请输入用户名"><br />
+                <p id="username_span"></p>
+                <input id="userpwd" placeholder="请输入密码6-12位"><br />
+                <p id="userpwd_span"></p>
+                <input id="usertel" placeholder="请输入手机号"><br />
+                <p id="usertel_span"></p>
+                <div style="line-height: 50px;">注册即视为同意 <a href="#">《礼无忧用户注册协议》</a></div>
+                <button id="btn">立即注册</button><br>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="../js/cookie.js"></script>
+<script>
+    var usernameInput = document.getElementById("username");
+    var userpwdInput = document.getElementById("userpwd");
+    var usertelInput = document.getElementById("usertel");
+    var btn = document.getElementById("btn");
+    btn.onclick = function () {
+        var username = usernameInput.value;
+        var userpwd = userpwdInput.value;
+        var usertel = usertelInput.value;
+
+        var req = new XMLHttpRequest();
+        req.open("get", `../php/register.php?username=${username}&userpwd=${userpwd}&usertel=${usertel}`, true);
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                let result = req.responseText;
+                let obj = JSON.parse(result);
+                if (obj["code"] == 1) {
+                    window.location.href = "../html/login.html";
+                } else {
+                    alert(obj["msg"]);
+                }
+            }
+        }
+    }
+
+    var usernameSpan = document.getElementById("username_span");
+    var userpwdSpan = document.getElementById("userpwd_span");
+    var usertelSpan = document.getElementById("usertel_span");
+    btn.onclick = function () {
+        var username = usernameInput.value;
+        var usernameReg = /^[0-9a-z_$]{2,6}$/ig; //用户名的规则
+
+        var userpwd = userpwdInput.value;
+        var userpwdReg = /^[0-9]{3,11}$/ig; //密码规则
+
+        var usertel = usertelInput.value;
+        var usertelReg = /^[0-9]{3,11}$/ig; //密码规则
+
+        var userpwdFlag = checkStrByReg(userpwd, userpwdReg, userpwdSpan, "密码格式不正确");
+        var usertelFlag = checkStrByReg(usertel, usertelReg, usertelSpan, "手机格式不正确");
+        var usernameFlag = checkStrByReg(username, usernameReg, usernameSpan, "只能是数字字母_$组成长度3到6位不能是数字开头");
+    }
+
+    function checkStrByReg(str, reg, obj, msg) {
+        if (reg.test(str)) {
+            obj.innerHTML = "√";
+            obj.style.color = "green";
+            return true;
+        } else {
+            obj.innerHTML = msg;
+            obj.style.color = "red";
+            return false;
+        }
+    }
+</script>
+
+</html>

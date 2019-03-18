@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/toubu.css">
+    <style>
+        /* login */
+        .login {
+            width: 100%;
+            height: 620px;
+            background-color: aqua;
+            background: url(../images/6.jpg) no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+        }
+
+        .login_1 {
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            position: absolute;
+            right: 200px;
+            top: 60px;
+            border-radius: 18px;
+        }
+
+        .login_a {
+            font-size: 24px;
+            line-height: 50px;
+            margin-top: 50px;
+        }
+
+        .login_2 {
+            width: 400px;
+            margin-left: 65px;
+        }
+
+        .login_2 input {
+            width: 370px;
+            height: 40px;
+            margin-top: 60px;
+        }
+
+        .login_2 button {
+            width: 200px;
+            height: 40px;
+            margin-top: 60px;
+            margin-left: 90px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 0, 0, .8);
+            background-color: red;
+            color: aliceblue;
+        }
+
+        .login_2 p {
+            margin-top: 50px;
+            float: left;
+            margin-left: 300px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        <div class="center">
+            <div><a href="../index.html"><img src="../images/1.jpg" style="width: 55px; height: 55px;" title="我是logo"></a></div>
+            <ul class="daohang">
+                <li class="dh_1">
+                    <a href="#" class="dh_11">礼物分类</a>
+                    <ul class="dh_2">
+                        <li><a href="#">少女心饰</a></li>
+                        <li><a href="#">萌萌美物</a></li>
+                        <li><a href="#">为爱停留</a></li>
+                        <li><a href="#">潮流时尚</a></li>
+                        <li><a href="#">科技达人</a></li>
+                        <li><a href="#">幸福烙印</a></li>
+                    </ul>
+                </li>
+                <li class="top_1">
+                    <a href="#" class="top_11">送礼导航</a>
+                    <ul class="top_2">
+                        <li><a href="#">公主女票 </a></li>
+                        <li><a href="#">欧巴男票</a></li>
+                        <li><a href="#">潮爸辣妈</a></li>
+                        <li><a href="">兄弟闺蜜</a> </li>
+                        <li><a href="#">熊孩子</a></li>
+                        <li><a href="#">生意伙伴</a></li>
+                    </ul>
+                </li>
+                <li><a>创意礼物</a></li>
+                <li><a>新品上架</a></li>
+                <li><a>愚人节礼物</a></li>
+            </ul>
+            <div class="dv">
+                <img src="../images/7.png" alt="" class="img_1">
+                <div class="dv_1">
+                    <p><a href="#">登录</a></p>
+                    <p><a href="../html/register.html">注册</a></p>
+                </div>
+                <div class="zc">
+                    <img src="../images/8.png" alt="" class="img_2">
+                    <p class="shopp"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录 -->
+    <div class="login">
+        <div class="login_1">
+            <div class="login_2">
+                <div class="login_a">欢迎回来 </div>
+                <input id="username" placeholder="请输入手机号/用户名"><br />
+                <input id="userpwd" placeholder="请输入密码"><br />
+                <button id="btn">立即登陆</button><br>
+                <p><a href="../html/register.html">立即注册</a></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="../js/cookie.js"></script>
+<script>
+    var usernameInput = document.getElementById("username");
+    var userpwdInput = document.getElementById("userpwd");
+    var btn = document.getElementById("btn");
+    btn.onclick = function () {
+        var username = usernameInput.value;
+        var userpwd = userpwdInput.value;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("get", `../php/login.php?username=${username}&userpwd=${userpwd}`, true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let result = xhr.responseText;
+                let obj = JSON.parse(result);
+                if (obj["code"] == 1) {
+                    //登录成功这里  记录用户登录的信息
+                    setCookie("loginName", username, 7);
+                    setCookie("loginId", obj["id"], 7);
+
+                    if (getCookie("backUrl")) { //跳转设置
+                        window.location.href = getCookie("backUrl");
+                    } else {
+                        window.location.href = "../index.html";
+                    }
+                } else {
+                    alert(obj["msg"]);
+                }
+            }
+        }
+    }
+</script>
+
+</html>
