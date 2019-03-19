@@ -55,11 +55,11 @@
             <div><a><img src="images/1.jpg" style="width: 55px; height: 55px;" title="我是logo"></a></div>
             <ul class="daohang">
                 <li class="dh_1">
-                    <a href="#" class="dh_11">礼物分类</a>
+                    <a href="html/goodslist.html" class="dh_11">礼物分类</a>
                     <ul class="dh_2">
                         <li><a href="html/goodslist.html">少女心饰</a></li>
-                        <li><a href="#">萌萌美物</a></li>
-                        <li><a href="#">为爱停留</a></li>
+                        <li><a href="html/goodslist.html">萌萌美物</a></li>
+                        <li><a href="html/goodslist.html">为爱停留</a></li>
                         <li><a href="#">潮流时尚</a></li>
                         <li><a href="#">科技达人</a></li>
                         <li><a href="#">幸福烙印</a></li>
@@ -82,18 +82,14 @@
             </ul>
             <div class="dv">
                 <img src="images/7.png" alt="" class="img_1">
-                <div class="dv_1">
-                    <div id="userInfo" style="text-align: center;">
-                        <!-- leson <button>退出</button>
-                        请登录 -->
-                    </div>
+                <div id="userInfo" style="text-align: center;">
+                    <!-- leson <button>退出<button> -->
+                    <!-- 请登录 -->
                 </div>
-                <div class="zc">
-                    <img src="images/8.png" alt="" class="img_2">
-                    <div id="shoppingInfo">
-                        <!-- 登录人的购物车相关信息 -->
-                    </div>
-                </div>
+                <img src="images/8.png" alt="" class="img_2">
+            </div>
+            <div id="shoppingInfo">
+                <!-- 登录人的购物车相关信息 -->
             </div>
         </div>
     </div>
@@ -106,10 +102,10 @@
             <li></li>
         </ul>
         <ul class="content">
-            <li class="selected"><img src="images/2.jpg"></li>
-            <li><img src="images/3.jpg"></li>
-            <li><img src="images/4.jpg"></li>
-            <li><img src="images/5.jpg"></li>
+            <li class="selected"><img src="./images/2.jpg"></li>
+            <li><img src="./images/3.jpg"></li>
+            <li><img src="./images/4.jpg"></li>
+            <li><img src="./images/5.jpg"></li>
         </ul>
     </div>
     <!-- 特色 -->
@@ -264,145 +260,27 @@
             <li><a>联系我们</a></li>
         </ul>
     </div>
-    <div class="tese">
-        <img src="images/ll.png" alt="" class="tese_img">
-    </div>
-    <div class="hah">
-        <div style="float: left; margin-left: 160px; margin-top: 10px;">
-            友情链接：照片书&nbsp;厦门特产&nbsp;新疆和田玉&nbsp;健身减肥&nbsp;
-            网上冲印&nbsp;钻戒定制&nbsp;紫砂壶&nbsp;钻石批发网&nbsp;眼镜中国&nbsp;鲜花礼品网&nbsp;BeeFo品牌官网&nbsp;影楼网人民币收藏&nbsp;
-            欧宝丽官网服&nbsp;装搭配&nbsp;鞋<br>纸艺网&nbsp;商机网&nbsp;唯品会&nbsp;品牌折扣网&nbsp;53货源网&nbsp;型尚网
-            饰品招商加盟&nbsp;好乐淘买鞋&nbsp;红酒鲜花网&nbsp;意绵绵珠宝&nbsp;云南花木网&nbsp;北京礼品公司&nbsp;好乐美饰&nbsp;微商货源网&nbsp;Onlylady女人志&nbsp;闺蜜网<br>婚车租赁&nbsp;中国品牌&nbsp;服装网&nbsp;比价钻戒钻石网&nbsp;好花网&nbsp;&nbsp;申请友链QQ：59569526
+    <div style="position: fixed; bottom:0;left:0">
+        <div class="tese">
+            <img src="images/ll.png" alt="" class="tese_img">
         </div>
-        <div style="float: right; margin-right:250px; margin-top: 10px;">
-            <img src="images/lg.png" alt="">
+        <div class="hah">
+            <div style="float: left; margin-left: 160px; margin-top: 10px;">
+                友情链接：照片书&nbsp;厦门特产&nbsp;新疆和田玉&nbsp;健身减肥&nbsp;
+                网上冲印&nbsp;钻戒定制&nbsp;紫砂壶&nbsp;钻石批发网&nbsp;眼镜中国&nbsp;鲜花礼品网&nbsp;BeeFo品牌官网&nbsp;影楼网人民币收藏&nbsp;
+                欧宝丽官网服&nbsp;装搭配&nbsp;鞋<br>纸艺网&nbsp;商机网&nbsp;唯品会&nbsp;品牌折扣网&nbsp;53货源网&nbsp;型尚网
+                饰品招商加盟&nbsp;好乐淘买鞋&nbsp;红酒鲜花网&nbsp;意绵绵珠宝&nbsp;云南花木网&nbsp;北京礼品公司&nbsp;好乐美饰&nbsp;微商货源网&nbsp;Onlylady女人志&nbsp;闺蜜网<br>婚车租赁&nbsp;中国品牌&nbsp;服装网&nbsp;比价钻戒钻石网&nbsp;好花网&nbsp;&nbsp;申请友链QQ：59569526
+            </div>
+            <div style="float: right; margin-right:250px; margin-top: 10px;">
+                <img src="images/lg.png" alt="">
+            </div>
         </div>
     </div>
 </body>
 <script src="js/cookie.js"></script>
+<script src="js/jquery-1.11.3.js"></script>
 <script>
-    var content = document.getElementById("content"); //元素生成目的地
-    var userInfoDiv = document.getElementById("userInfo");
-    var shoppingInfoDiv = document.getElementById("shoppingInfo");
-
-    //进行判断
-    var loginId = getCookie("loginId");
-    if (loginId) {
-        var loginName = getCookie("loginName");
-        userInfoDiv.innerHTML = `<span>${loginName}</span><span onclick="userExist()">退出</span>`;
-        showNum(); //显示已经登录用户的购买情况
-    } else {
-        userInfoDiv.innerHTML = `<span onclick="gotoLogin()">点击登录</span>`;
-    }
-
-
-
-    $.ajax({
-        type: "get",
-        url: "php/goodslist.php", //java aspx  asp py
-        dataType: "json",
-        success: function (list) { //list是一个集合
-            var html = "";
-            list.forEach(function (item) {
-                var {
-                    id,
-                    goodsname,
-                    goodsimg,
-                    goodsnum,
-                    goodsprice
-                } = item;
-                html +=
-                    ` <div class="tr">
-                            <img src="${goodsimg}">
-                            <p>
-                                <span>${goodsname}</span>
-                            </p>
-                            <p>
-                                <span>价格${(goodsprice*1).toFixed(2)}</span>
-                                <span>数量${goodsnum}</span>
-                                <span class='buy' onclick="gotomyshoppingcar('${id}')">立即购买</span>
-                            </p>
-                         </div>`;
-            });
-            content.innerHTML = html;
-
-        },
-        error: function (info) {
-            console.log(info);
-        }
-    });
-
-    function gotomyshoppingcar(goodsid) {
-        // alert(goodsid); //session
-        //加入购物车 判断用户是否登录
-        var loginId = getCookie("loginId"); //获取用户登录的编号
-        if (loginId) {
-            //加入购物车的代码
-            //人买商品  如果买过了(查询) 就更新数量(更新)  没有买过新增一条(新增)
-            $.ajax({
-                type: "get",
-                url: "php/gotomyshoppincar.php",
-                data: {
-                    userid: loginId,
-                    goodsid: goodsid,
-                    num: 1
-                },
-                dataType: "json",
-                success: function (obj) {
-                    if (obj["code"] == 1) {
-                        //加入成功
-                        if (confirm("加入成功 是否立即结算")) {
-                            window.location.href = "myshoppingcarlist.html";
-                        } else {
-                            showNum();
-                        }
-
-                    } else {
-                        alert(obj["msg"]);
-                    }
-
-                }
-
-            });
-
-        } else {
-            //返回登录页面
-            gotoLogin();
-        }
-
-    }
-
-    function gotoLogin() {
-        setCookie("backUrl", window.location.href, 7);
-        window.location.href = "html/login.html";
-        // window.location.href = "login.html?backurl="+window.location.href;
-    }
-
-    function userExist() {
-        setCookie("loginId", "", -1);
-        setCookie("loginName", "", -1);
-        gotoLogin();
-    }
-
-    function showNum() {
-        $.ajax({
-            type: "get",
-            url: "../php/getusergoodsnum.php",
-            data: {
-                loginId: loginId
-            },
-            dataType: "json",
-            success: function (obj) {
-                if (obj["sum"] >= 1) {
-                    shoppingInfoDiv.innerHTML = `<a href="myshoppingcarlist.html">${obj["sum"]}</a>`;
-                } else {
-                    shoppingInfoDiv.innerHTML = `<a>空空如也</a>`;
-                }
-                shoppingInfoDiv.style.display = "block";
-            }
-        });
-    }
-
+    //轮播图
     var navList = document.querySelectorAll("#box .nav li");
     var contentList = document.querySelectorAll("#box .content li");
     var index = 0;
@@ -417,7 +295,6 @@
                 index = 0;
             }
             show();
-
         }, 1000)
     }
 
@@ -461,6 +338,29 @@
                 show();
             }
         }
+    }
+    var content = document.getElementById("content"); //元素生成目的地
+    var userInfoDiv = document.getElementById("userInfo");
+    var shoppingInfoDiv = document.getElementById("shoppingInfo");
+    //进行判断
+    var loginId = getCookie("loginId");
+    if (loginId) {
+        var loginName = getCookie("loginName");
+        userInfoDiv.innerHTML = `<span>${loginName}</span><span onclick="userExist()">退出</span>`;
+        showNum(); //显示已经登录用户的购买情况
+    } else {
+        userInfoDiv.innerHTML = `<span onclick="gotoLogin()">登录</span>`;
+    }
+
+    function gotoLogin() {
+        setCookie("backUrl", window.location.href, 7);
+        window.location.href = "html/login.html";
+    }
+
+    function userExist() {
+        setCookie("loginId", "", -1);
+        setCookie("loginName", "", -1);
+        gotoLogin();
     }
 </script>
 

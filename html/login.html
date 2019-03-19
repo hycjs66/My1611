@@ -99,14 +99,12 @@
             </ul>
             <div class="dv">
                 <img src="../images/7.png" alt="" class="img_1">
-                <div class="dv_1">
-                    <p><a href="#">登录</a></p>
-                    <p><a href="../html/register.html">注册</a></p>
+                <div id="userInfo" style="margin-left: 40px;">
+                    <a href="../html/register.html">注册</a>
                 </div>
-                <div class="zc">
-                    <img src="../images/8.png" alt="" class="img_2">
-                    <p class="shopp"></p>
-                </div>
+                <img src="../images/8.png" alt="" class="img_2">
+            </div>
+            <div id="shoppingInfo">
             </div>
         </div>
     </div>
@@ -122,10 +120,28 @@
             </div>
         </div>
     </div>
-
+    <!-- 底部 -->
+    <div class="tese" style="width: 100%;">
+        <img src="../images/dibu.png" alt="" class="tese_img" style="width: 100%;">
+    </div>
+    <div class="db" style="color:white; line-height: 110px;">
+        <div class="db_11">&nbsp;© liwuyou.com粤ICP备10222238号-1</div>
+        <ul class="db_1">
+            <li><a>关于我们</a></li>
+            <li><a>帮助中心</a></li>
+            <li><a>人才招聘</a></li>
+            <li><a>售后服务</a></li>
+            <li><a>配送与验收</a></li>
+            <li><a>联系我们</a></li>
+        </ul>
+    </div>
 </body>
 <script src="../js/cookie.js"></script>
+<script src="../js/jquery-1.11.3.js"></script>
 <script>
+    $(".img_2").click(function () {
+        alert("请登录");
+    });
     var usernameInput = document.getElementById("username");
     var userpwdInput = document.getElementById("userpwd");
     var btn = document.getElementById("btn");
