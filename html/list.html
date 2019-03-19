@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/list.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 导航 -->
+    <div id="nav">
+        <div id="m_info">
+            <div id="nav_list">
+                <span id="shouye">首页</span>
+                <span id="type">萌物库</span>
+                <span id="shop">品牌馆</span>
+                <span id="er">二手铺</span>
+                <span id="tong">同袍社区</span>
+            </div>
+            <div id="shop_manage">
+                <i></i>店铺入驻
+            </div>
+        </div>
+    </div>
+    <div class="m_info">
+        <div class="product">
+            <div class="fixedtop">
+                <div class="item">
+                    排序:
+                    <span id="price0" name="paixu" value="asc">价格↑</span>
+                    <span id="price1" name="paixu" value="desc">价格↓</span>
+                </div>
+                <div id="input_s">
+                    <input type="text" placeholder="请输入您要搜索的商品" id="sousuoInput">
+                    <span id="sousuo" ></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul id="product_list">
+                <!-- <li>
+                    <a href="../html/xiangq.html">
+                        <img src="../image/webp(0)" alt="轻汉坊（鱼莲说）原创明制袄裙琵琶袖刺绣单层日常秋冬袄裙汉服">
+                    </a>
+                    <p class="price">
+                        <i>￥</i>
+                        155.00
+                    </p>
+                    <p class="name">
+                        <a href="../html/xiangq.html">轻汉坊（鱼莲说）原创明制袄裙琵琶袖刺绣单层日常秋冬袄裙汉服</a>
+                    </p>
+                </li> -->
+            </ul>
+        </div>
+        <div>
+            <button id="prev">上一页</button>
+            <button id="next">下一页</button>
+        </div>
+    </div>
+</body>
+<script>
+    var key = "";
+    var order = "id";
+    var paixu = "asc";
+    var paixu1 = "desc";
+    var shownum = 8;
+    var pageIndex = 0;
+    var tbody = document.getElementById("product_list");
+    var price0 = document.getElementById("price0");
+    var price1 = document.getElementById("price1");
+    var btn = document.getElementById("sousuo");
+    var prevBtn = document.getElementById("prev");
+    var nextBtn = document.getElementById("next");
+    var sousuoInput = document.getElementById("sousuoInput");
+
+    getData(key,paixu,shownum * pageIndex, shownum)
+    price0.onclick = function() {
+        getData(key,paixu,shownum * pageIndex, shownum)
+    }
+    price1.onclick = function() {
+        getData(key,paixu1,shownum * pageIndex, shownum)
+    }
+    btn.onclick = function(){
+        var key = sousuoInput.value;
+        getData(key,paixu,shownum * pageIndex, shownum)
+    }
+    function getData(key,paixu,skipnum, shownum){
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", `http://localhost/xiangmu/php/list.php?key=${key}&paixu=${paixu}&skipnum=${skipnum}&shownum=${shownum}`,
+            true); //相对路径一用 就只能用服务来访问 写绝对的网络路径 处理跨域
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let result = xhr.responseText;
+                let list = JSON.parse(result); //获取该集合
+                var html = "";
+                list.forEach(function (item) {
+                    var {
+                        id,
+                        goodsname,
+                        goodsimg,
+                        goodsprice
+                    } = item;
+                    html +=
+                        `
+                    <li>
+                        <a href="../html/xiangq.html">
+                            <img src="../${goodsimg}" alt="${goodsname}">
+                        </a>
+                        <p class="price">
+                            <i>￥</i>
+                            ${goodsprice}
+                        </p>
+                        <p class="name">
+                            <a href="../html/xiangq.html">${goodsname}</a>
+                        </p>
+                    </li>
+                    `;
+                });
+                tbody.innerHTML = html;
+                }
+            }
+
+            var req = new XMLHttpRequest();
+                req.open("get", `http://localhost/xiangmu/php/fenye.php?key=${key}`, true);
+                req.send();
+                req.onreadystatechange = function () {
+                    if (req.readyState == 4 && req.status == 200) {
+                        let result = req.responseText;
+                        let obj = JSON.parse(result); //获取一共有多少条数据
+                        let count = obj["count"];
+                        let maxPageIndex = Math.ceil(count / shownum) - 1;
+                        //10条数据 每页显示三条  页码从0开始  0  1  2 3
+                        //9                                  0  1  2
+                        prevBtn.disabled = false;
+                        prevBtn.onclick = function () {
+                            prevBtn.disabled = true;
+                            pageIndex--;
+                            getData(key,paixu,shownum * pageIndex, shownum)
+                        }
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            nextBtn.disabled = true;
+                            pageIndex++;
+                            getData(key,paixu,shownum * pageIndex, shownum)
+                        }
+                        //先都绑定  不满足条件就移除
+                        if (pageIndex == 0) {
+                            prevBtn.onclick = null;
+                            prevBtn.disabled = true;
+                        }
+                        if (pageIndex == maxPageIndex) {
+                            nextBtn.onclick = null;
+                            nextBtn.disabled = true;
+                        }
+                    }
+                }
+        }
+</script>
+</html>

@@ -12,7 +12,6 @@
         #content {
             margin: 80px auto;
             width: 80%;
-            height: 2000px;
         }
 
         #content .tr {
@@ -32,7 +31,6 @@
             height: 225px;
             width: 225px;
             margin: 0 auto;
-            /* box-shadow: 2px 2px 2px 2px#cdcdcd; */
             margin-bottom: 20px;
         }
 
@@ -112,20 +110,22 @@
             <div id="shoppingInfo">
                 <!-- 登录人的购物车相关信息 -->
             </div>
+            <input type="text" placeholder="输入要搜索的商品" id="sousuoInput" style="width: 150px; height: 30px; border-radius: 15px 15px 15px 15px;margin-top: 22px;position: relative;">
+            <div id="sousuo" style="position: absolute;top:5px;right: 180px"><img src="../images/fdj.png" alt="" style="width: 28px;height: 28px;"></div>
         </div>
     </div>
     <!-- 信息 -->
     <div class="hy">
         <div class="hy_1">
-            <p class="hy2">首页&nbsp;/&nbsp;礼物分类</p>
+            <p class="hy2">首页&nbsp;&nbsp;/&nbsp;&nbsp;少女心事</p>
             <p class="hy1">服务热线：0755-86380505 (8:00－24:00)</p>
         </div>
     </div>
     <!-- 排序 -->
     <div class="paixu">
         <ul>
-            <li class="paixu1" value="asc" checked>价格从低到高</li>
-            <li class="paixu1" value="desc">价格从高到低</li>
+            <li id="price0" name="paixu" value="asc">价格从低到高</li>
+            <li id="price1" name="paixu" value="desc">价格从高到低</li>
         </ul>
     </div>
     <!-- goodinfo -->
@@ -142,12 +142,13 @@
             </p>
         </div> -->
     </div>
-    <div select id="shownum">
-        <button id="prev">上一页</button>
-        <button id="next">下一页</button>
-    </div>
     <!-- 底部 -->
     <div class="tese" style="width: 100%;">
+        <!-- 分页 -->
+        <div select id="shownum">
+            <button id="prev">上一页</button>
+            <button id="next">下一页</button>
+        </div>
         <img src="../images/dibu.png" alt="" class="tese_img" style="width: 100%;">
     </div>
     <div class="db" style="color:white; line-height: 110px;">
@@ -161,10 +162,105 @@
             <li><a>联系我们</a></li>
         </ul>
     </div>
+    <div style="position: fixed;right: 40px;bottom: 100px;"><a href="#"><img src="../images/jiantou.png" alt="" style="width: 50px;height: 50px;"></a></div>
 </body>
 <script src="../js/cookie.js"></script>
 <script src="../js/jquery-1.11.3.js"></script>
 <script>
+    var key = "";
+    var order = "id";
+    var paixu = "asc";
+    var paixu1 = "desc";
+    var shownum = 12;
+    var pageIndex = 0;
+    var tbody = document.getElementById("content");
+    var price0 = document.getElementById("price0");
+    var price1 = document.getElementById("price1");
+    var btn = document.getElementById("sousuo");
+    var prevBtn = document.getElementById("prev");
+    var nextBtn = document.getElementById("next");
+    var sousuoInput = document.getElementById("sousuoInput");
+
+    getData(key, paixu, shownum * pageIndex, shownum)
+    price0.onclick = function () {
+        getData(key, paixu, shownum * pageIndex, shownum)
+    }
+    price1.onclick = function () {
+        getData(key, paixu1, shownum * pageIndex, shownum)
+    }
+    btn.onclick = function () {
+        var key = sousuoInput.value;
+        getData(key, paixu, shownum * pageIndex, shownum)
+    }
+
+    function getData(key, paixu, skipnum, shownum) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("get",
+            `../php/list1.php?key=${key}&paixu=${paixu}&skipnum=${skipnum}&shownum=${shownum}`,
+            true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let result = xhr.responseText;
+                let list = JSON.parse(result); //获取该集合
+                var html = "";
+                list.forEach(function (item) {
+                    var {
+                        id,
+                        goodsname,
+                        goodsimg,
+                        goodsprice
+                    } = item;
+                    html +=
+                        ` <div class="tr">
+                             <img src="../${goodsimg}">
+                             <p>
+                                 <span>${goodsname}</span>
+                             </p>
+                             <p>
+                                 <span>￥${(goodsprice*1).toFixed(2)}</span>
+
+                                 <span class='buy' onclick="gotomyshoppingcar('${id}')">立即购买</span>
+                             </p>
+                         </div>`;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        var req = new XMLHttpRequest();
+        req.open("get", `../php/fenye.php?key=${key}`, true);
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                let result = req.responseText;
+                let obj = JSON.parse(result); //获取一共有多少条数据
+                let count = obj["count"];
+                let maxPageIndex = Math.ceil(count / shownum) - 1;
+                prevBtn.disabled = false;
+                prevBtn.onclick = function () {
+                    prevBtn.disabled = true;
+                    pageIndex--;
+                    getData(key, paixu, shownum * pageIndex, shownum)
+                }
+                nextBtn.disabled = false;
+                nextBtn.onclick = function () {
+                    nextBtn.disabled = true;
+                    pageIndex++;
+                    getData(key, paixu, shownum * pageIndex, shownum)
+                }
+                //先都绑定  不满足条件就移除
+                if (pageIndex == 0) {
+                    prevBtn.onclick = null;
+                    prevBtn.disabled = true;
+                }
+                if (pageIndex == maxPageIndex) {
+                    nextBtn.onclick = null;
+                    nextBtn.disabled = true;
+                }
+            }
+        }
+    }
     var content = document.getElementById("content"); //元素生成目的地
     var userInfoDiv = document.getElementById("userInfo");
     var shoppingInfoDiv = document.getElementById("shoppingInfo");
@@ -203,7 +299,7 @@
                             </p>
                             <p>
                                 <span>￥${(goodsprice*1).toFixed(2)}</span>
-                                
+
                                 <span class='buy' onclick="gotomyshoppingcar('${id}')">立即购买</span>
                             </p>
                          </div>`;
@@ -246,14 +342,12 @@
                     }
 
                 }
-
             });
 
         } else {
             //返回登录页面
             gotoLogin();
         }
-
     }
 
     function gotoLogin() {
@@ -280,59 +374,59 @@
                 if (obj["sum"] >= 1) {
                     shoppingInfoDiv.innerHTML = `<a href="myshoppingcarlist.html">${obj["sum"]}</a>`;
                 } else {
-                    shoppingInfoDiv.innerHTML = `<a>空空如也</a>`;
+                    shoppingInfoDiv.innerHTML = `<a>&nbsp;&nbsp;&nbsp;&nbsp;</a>`;
                 }
                 shoppingInfoDiv.style.display = "block";
             }
         });
     }
-    var paixu = "asc";
-    $(".paixu1").click(function () {
-        paixu = $(this).attr("value");
-        getData();
-    });
 
-    function getData() {
-        $.ajax({
-            type: "get",
-            url: "../php/list.php",
-            data: {
-                paixu: paixu,
-            },
-            dataType: "json",
-            success: function (list) { //list是一个集合
-                var html = "";
-                list.forEach(function (item) {
-                    var {
-                        id,
-                        goodsname,
-                        goodsimg,
-                        goodsnum,
-                        goodsprice
-                    } = item;
-                    html +=
-                        ` <div class="tr">
-                                            <img src="../${goodsimg}">
-                                            <p>
-                                                <span>${goodsname}</span>
-                                            </p>
-                                            <p>
-                                                <span>￥${(goodsprice*1).toFixed(2)}</span><br>
-                
-                                                <span class='buy' onclick="gotomyshoppingcar('${id}')">加入购物车</span>
-                                            </p>
-                                         </div>`;
-                });
-                content.innerHTML = html;
-            },
-            error: function (info) {
-                console.log(info);
-            }
-        });
-    }
+    // //排序
+    // var paixu = "asc";
+    // $(".paixu1").click(function () {
+    //     paixu = $(this).attr("value");
+    //     getData();
+    // });
 
-    var prevBtn = document.getElementById("prev");
-    var nextBtn = document.getElementById("next");
+    // function getData() {
+    //     $.ajax({
+    //         type: "get",
+    //         url: "../php/list.php",
+    //         data: {
+    //             paixu: paixu,
+    //         },
+    //         dataType: "json",
+    //         success: function (list) { //list是一个集合
+    //             var html = "";
+    //             list.forEach(function (item) {
+    //                 var {
+    //                     id,
+    //                     goodsname,
+    //                     goodsimg,
+    //                     goodsnum,
+    //                     goodsprice
+    //                 } = item;
+    //                 html +=
+    //                     ` <div class="tr">
+    //                                         <img src="../${goodsimg}">
+    //                                         <p>
+    //                                             <span>${goodsname}</span>
+    //                                         </p>
+    //                                         <p>
+    //                                             <span>￥${(goodsprice*1).toFixed(2)}</span><br>
+
+    //                                             <span class='buy' onclick="gotomyshoppingcar('${id}')">加入购物车</span>
+    //                                         </p>
+    //                                      </div>`;
+    //             });
+    //             content.innerHTML = html;
+    //         },
+    //         error: function (info) {
+    //             console.log(info);
+    //         }
+    //     });
+    // }
+    // //分页
 </script>
 
 </html>
