@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/toubu.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .zixi {
+            width: 100%;
         }
 
         #box {
             height: 600px;
             width: 400px;
-            margin-left: 50px;
+            margin-left: 200px;
             margin-top: 50px;
             position: relative;
+            float: left;
         }
 
         #top {
@@ -36,16 +37,16 @@
             position: absolute;
             height: 50px;
             width: 50px;
-            background-color: rgba(110, 110, 110, 0.4);
             left: 0;
             top: 0;
+            background-color: rgba(110, 110, 110, 0.4);
             display: none;
             border-radius: 50%;
         }
 
         #nav {
-            height: 200px;
             width: 400px;
+            height: 200px;
         }
 
         #nav li {
@@ -60,10 +61,10 @@
             height: 100px;
         }
 
-        #bigshadow {
-            position: absolute;
+        #bigShadow {
             height: 100px;
             width: 100px;
+            position: absolute;
             left: 500px;
             top: 0;
             overflow: hidden;
@@ -72,29 +73,421 @@
         }
 
         #bigimg {
-            position: absolute;
             width: 800px;
             height: 800px;
+            position: absolute;
             left: 0;
             top: 0;
         }
 
-        #content {
-            position: absolute;
-            left: 500px;
-            top: 50px;
-            height: 600px;
-            width: 400px;
-            border: 1px solid red;
+        #details {
+            height: 500px;
+            width: 500px;
+            float: left;
+            margin-left: 150px;
+            margin-top: 100px;
+            margin-bottom: 10px;
+        }
+
+        .goodsname {
+            font-size: 30px;
+            line-height: 100px;
+        }
+
+        .goodsnum {
+            color: red;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            font-size: 22px;
+            line-height: 60px;
+        }
+
+        .goodsnum p {
+            float: right;
+            font-size: 14px;
+            margin-right: 20px;
+            margin-top: 15px;
+            color: black;
+        }
+
+        .goodsdet p {
+            float: left;
+            font-size: 16px;
+            margin-top: 30px;
+            padding: 5px;
+            margin-left: 20px;
+        }
+
+        .buy {
+            height: 40px;
+            width: 280px;
+            /* border: 1px solid; */
+            margin-top: 120px;
+            margin-left: 120px;
+            text-align: center;
+            line-height: 40px;
+            background-color: pink;
+            border-radius: 15px 15px 15px 15px;
+            box-shadow: 1px 1px;
         }
     </style>
 </head>
 
 <body>
+    <!-- 头部 -->
+    <div class="title">
+        <div class="center">
+            <div><a href="../index.html"><img src="../images/1.jpg" style="width: 55px; height: 55px;"
+                        title="我是logo"></a></div>
+            <ul class="daohang">
+                <li class="dh_1">
+                    <a href="#" class="dh_11">礼物分类</a>
+                    <ul class="dh_2">
+                        <li><a href="../html/goodslist.html">少女心饰</a></li>
+                        <li><a href="#">萌萌美物</a></li>
+                        <li><a href="#">为爱停留</a></li>
+                        <li><a href="#">潮流时尚</a></li>
+                        <li><a href="#">科技达人</a></li>
+                        <li><a href="#">幸福烙印</a></li>
+                    </ul>
+                </li>
+                <li class="top_1">
+                    <a href="#" class="top_11">送礼导航</a>
+                    <ul class="top_2">
+                        <li><a href="#">公主女票 </a></li>
+                        <li><a href="#">欧巴男票</a></li>
+                        <li><a href="#">潮爸辣妈</a></li>
+                        <li><a href="">兄弟闺蜜</a> </li>
+                        <li><a href="#">熊孩子</a></li>
+                        <li><a href="#">生意伙伴</a></li>
+                    </ul>
+                </li>
+                <li><a>创意礼物</a></li>
+                <li><a>新品上架</a></li>
+                <li><a>愚人节礼物</a></li>
+            </ul>
+            <div class="dv">
+                <img src="../images/7.png" alt="" class="img_1">
+                <div id="userInfo" style="margin-left: 40px;">
+                    <!-- leson <button>退出<button> -->
+                    <!-- 请登录 -->
+                </div>
+                <img src="../images/8.png" alt="" class="img_2">
+            </div>
+            <div id="shoppingInfo">
+                <!-- 登录人的购物车相关信息 -->
+            </div>
+        </div>
+    </div>
+    <!-- 信息 -->
+    <div class="hy">
+        <div class="hy_1">
+            <p class="hy2">首页&nbsp;&nbsp;/&nbsp;&nbsp;<span>goodsname</span></p>
+            <p class="hy1">服务热线：0755-86380505 (8:00－24:00)</p>
+        </div>
+    </div>
+    <!-- 详情页 -->
+    <div class="zixi">
+        <div id="box">
+            <div id="top">
+                <img src="../img/1-1.jpg" id="smallimg">
+                <div id="shadow"></div>
 
+                <div id="bigShadow">
+                    <img src="../img/1-1.jpg" id="bigimg">
+                </div>
+            </div>
+            <ul id="nav">
+                <li data-small="img/small1.jpg" data-big="img/big1.jpg">
+                    <img src="../img/small1-1.jpg">
+                </li>
+                <li data-small="img/small2.jpg" data-big="img/big2.jpg">
+                    <img src="../img/small1-2.jpg">
+                </li>
+                <li data-small="img/small3.jpg" data-big="img/big3.jpg">
+                    <img src="../img/small1-3.jpg">
+                </li>
+                <li data-small="img/small4.jpg" data-big="img/big4.jpg">
+                    <img src="../img/small1-4.jpg">
+                </li>
+            </ul>
+        </div>
+        <div id="details">
+            <!-- <div class="goodsname">${goodsname}</div>
+            <div class="goodsnum">￥${goodsprice}<p>剩余${goodsnum}件</p>
+            </div>
+            <div class="goodsdet">
+                <p>礼物款式:</p>
+                <p style="border:1px solid;">款式一</p>
+                <p style="border:1px solid;">款式二</p>
+            </div>
+            <div class="buy" onclick="gotomyshoppingcar('${id}')">加入购物车</div> -->
+        </div>
+    </div>
 </body>
+<script src="../js/cookie.js"></script>
+<script src="../js/jquery-1.11.3.js"></script>
 <script>
- 
+    var content = document.getElementById("details"); //元素生成目的地
+    var userInfoDiv = document.getElementById("userInfo");
+    var shoppingInfoDiv = document.getElementById("shoppingInfo");
+    var nav = document.getElementById("nav");
+
+    var smallimg = document.getElementById("smallimg");
+    var navList = document.querySelectorAll("#nav li");
+    var box = document.getElementById("box");
+    var topDiv = document.getElementById("top");
+    var shadow = document.getElementById("shadow");
+    var bigShadow = document.getElementById("bigShadow");
+    var bigImg = document.getElementById("bigimg");
+
+    var boxWidth = box.offsetWidth;
+    var topDivHeight = topDiv.offsetHeight;
+    var boxLeft = box.offsetLeft;
+    var boxTop = box.offsetTop;
+    var bigShadowWidth = parseInt(getStyleAttr(bigShadow, "width"));
+    var bigShadowHeight = parseInt(getStyleAttr(bigShadow, "height"));
+
+    var shadowWidth = parseInt(getStyleAttr(shadow, "width"));
+    var shadowHeight = parseInt(getStyleAttr(shadow, "height"));
+    var bigImgWidth = parseInt(getStyleAttr(bigImg, "width"));
+    var bigImgHeight = parseInt(getStyleAttr(bigImg, "height"));
+
+    var maxLeft = boxWidth - shadowWidth;
+    var maxTop = topDivHeight - shadowHeight;
+
+    topDiv.onmousemove = function (e) {
+        var evt = window.event || e;
+
+        var pageX = evt.pageX;
+        var pageY = evt.pageY;
+        var x = pageX - shadowWidth / 2 - boxLeft;
+        var y = pageY - shadowHeight / 2 - boxTop;
+
+        if (x <= 0) {
+            x = 0;
+        }
+        if (y <= 0) {
+            y = 0;
+        }
+        if (x >= maxLeft) {
+            x = maxLeft;
+        }
+        if (y >= maxTop) {
+            y = maxTop;
+        }
+        var bigX = bigImgWidth * x / boxWidth;
+        var bigY = bigImgHeight * y / topDivHeight;
+
+        shadow.style.left = x + "px";
+        shadow.style.top = y + "px";
+        bigImg.style.left = -bigX + "px";
+        bigImg.style.top = -bigY + "px";
+        shadow.style.display = "block";
+        bigShadow.style.display = "block";
+        var bigShadowLeft = x - (bigShadowWidth / 2 - shadowWidth / 2);
+        var bigShadowTop = y - (bigShadowHeight - shadowHeight) / 2;
+        bigShadow.style.left = bigShadowLeft + "px";
+        bigShadow.style.top = bigShadowTop + "px";
+
+    }
+    topDiv.onmouseout = function () {
+        shadow.style.display = "none";
+        bigShadow.style.display = "none";
+    }
+
+
+    for (var i = 0; i < navList.length; i++) {
+        var li = navList[i];
+        li.onmouseover = function () {
+            var smallSrc = this.getAttribute("data-small");
+            smallimg.src = smallSrc;
+            var bigSrc = this.getAttribute("data-big");
+            bigImg.src = bigSrc;
+        }
+    }
+
+    function getStyleAttr(obj, attr) {
+        if (window.getComputedStyle) {
+            return window.getComputedStyle(obj)[attr];
+        } else {
+            return obj.currentStyle[attr];
+        }
+    }
+
+    //进行判断
+    var loginId = getCookie("loginId");
+    if (loginId) {
+        var loginName = getCookie("loginName");
+        userInfoDiv.innerHTML = `<span>${loginName}</span><span onclick="userExist()">退出</span>`;
+        showNum(); //显示已经登录用户的购买情况
+    } else {
+        userInfoDiv.innerHTML = `<span onclick="gotoLogin()">点击登录</span>`;
+    }
+
+    var searchStr = window.location.search; // ?id=2
+    if (searchStr.indexOf("id") != -1) {
+        var id = searchStr.split("=")[1];
+        $.ajax({
+            type: "get",
+            url: "../php/goodslist1.php", //java aspx  asp py
+            data: {
+                id: "id",
+            },
+            dataType: "json",
+            success: function (list) { //list是一个集合
+                var html = "";
+                list.forEach(function (item) {
+                    if (item.id == id) {
+                        var {
+                            goodsname,
+                            goodsimg,
+                            goodsnum,
+                            goodsprice,
+                            goodsxiao,
+                            goodsda
+                        } = item;
+                        html +=
+                            `
+                            <div id="top">
+                <img src="../${goodsda}1.jpg" id="smallimg">
+                <div id="shadow"></div>
+
+                <div id="bigShadow">
+                    <img src="../${goodsda}1.jpg" id="bigimg">
+                </div>
+            </div>
+            <ul id="nav">
+                <li data-small="img/small1.jpg" data-big="img/big1.jpg">
+                    <img src="../${goodsxiao}1.jpg">
+                </li>
+                <li data-small="img/small2.jpg" data-big="img/big2.jpg">
+                    <img src="../${goodsxiao}2.jpg">
+                </li>
+                <li data-small="img/small3.jpg" data-big="img/big3.jpg">
+                    <img src="../${goodsxiao}3.jpg">
+                </li>
+                <li data-small="img/small4.jpg" data-big="img/big4.jpg">
+                    <img src="../${goodsxiao}4.jpg">
+                </li>
+            </ul>
+            `;
+                    }
+                });
+                box.innerHTML = html;
+
+            }
+        });
+    }
+
+
+    var searchStr = window.location.search; // ?id=2
+    if (searchStr.indexOf("id") != -1) {
+        var id = searchStr.split("=")[1];
+        $.ajax({
+            type: "get",
+            url: "../php/goodslist1.php", //java aspx  asp py
+            data: {
+                id: "id",
+            },
+            dataType: "json",
+            success: function (list) { //list是一个集合
+                var html = "";
+                list.forEach(function (item) {
+                    if (item.id == id) {
+                        var {
+                            goodsname,
+                            goodsimg,
+                            goodsnum,
+                            goodsprice,
+                            goodsxiao,
+                        } = item;
+                        html +=
+                            `
+                <div class="goodsname">${goodsname}</div>
+                <div class="goodsnum">￥${goodsprice}<p>剩余${goodsnum}件</p>
+                </div>
+                <div class="goodsdet">
+                    <p>礼物款式:</p>
+                    <p style="border:1px solid;">款式一</p>
+                    <p style="border:1px solid;">款式二</p>
+                </div>
+                <div class="buy" onclick="gotomyshoppingcar('${id}')">加入购物车</div>
+            `;
+                    }
+                });
+                content.innerHTML = html;
+            }
+        });
+    }
+
+    function gotomyshoppingcar(goodsid) {
+        // alert(goodsid); //session
+        //加入购物车 判断用户是否登录
+        var loginId = getCookie("loginId"); //获取用户登录的编号
+        if (loginId) {
+            //加入购物车的代码
+            //人买商品  如果买过了(查询) 就更新数量(更新)  没有买过新增一条(新增)
+            $.ajax({
+                type: "get",
+                url: "../php/gotomyshoppincar.php",
+                data: {
+                    userid: loginId,
+                    goodsid: goodsid,
+                    num: 1
+                },
+                dataType: "json",
+                success: function (obj) {
+                    if (obj["code"] == 1) {
+                        //加入成功
+                        if (confirm("加入成功 是否立即结算")) {
+                            window.location.href = "../html/myshopp.html";
+                        } else {
+                            showNum();
+                        }
+
+                    } else {
+                        alert(obj["msg"]);
+                    }
+
+                }
+            });
+
+        } else {
+            //返回登录页面
+            gotoLogin();
+        }
+    }
+
+    function gotoLogin() {
+        setCookie("backUrl", window.location.href, 7);
+        window.location.href = "../html/login.html";
+    }
+
+    function userExist() {
+        setCookie("loginId", "", -1);
+        setCookie("loginName", "", -1);
+        gotoLogin();
+    }
+
+    function showNum() {
+        $.ajax({
+            type: "get",
+            url: "../php/getusergoodsnum.php",
+            data: {
+                loginId: loginId
+            },
+            dataType: "json",
+            success: function (obj) {
+                if (obj["sum"] >= 1) {
+                    shoppingInfoDiv.innerHTML = `<a href="../html/myshopp.html">${obj["sum"]}</a>`;
+                } else {
+                    shoppingInfoDiv.innerHTML = `<a>&nbsp;&nbsp;&nbsp;&nbsp;</a>`;
+                }
+                shoppingInfoDiv.style.display = "block";
+            }
+        });
+    }
 </script>
 
 </html>
