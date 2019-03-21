@@ -62,7 +62,7 @@
             color: black;
             text-align: center;
             line-height: 30px;
-            margin-top: 15px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -372,7 +372,7 @@
             dataType: "json",
             success: function (obj) {
                 if (obj["sum"] >= 1) {
-                    shoppingInfoDiv.innerHTML = `<a href="../html/myshopp.html">${obj["sum"]}</a>`;
+                    shoppingInfoDiv.innerHTML = `<a href="../html/myshopp.html">购物车有${obj["sum"]}件商品</a>`;
                 } else {
                     shoppingInfoDiv.innerHTML = `<a>&nbsp;&nbsp;&nbsp;&nbsp;</a>`;
                 }

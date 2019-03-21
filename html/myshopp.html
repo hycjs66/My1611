@@ -81,6 +81,14 @@
                     <span>删除</span>
                 </div>
             </div>
+            <div class="tbody" style="background-color: white; height: 30px;">
+                <div class="fr closing" onclick="getTotal();" style="margin-right: 20px; line-height: 40px;">结 算</div>
+                <input type="hidden" id="cartTotalPrice" />
+                <div class="fr total" style="margin-right: 40px; line-height: 40px;">合计：￥<span
+                        id="priceTotal">0.00</span></div>
+                <div class="fr selected" id="selected" style="margin-right: 40px;line-height: 40px;">已选商品<span
+                        id="selectedTotal">0</span>件</div>
+            </div>
         </div>
     </div>
 </body>
@@ -272,6 +280,26 @@
             }
         });
     }
+
+    //设置全选效果
+    var checkALL = document.getElementsByClassName("check-all")[0];
+    var checkOneList = document.getElementsByClassName("check-one");
+    var maxCount = checkOneList.length; //得到长度
+    var count = 0;
+    checkALL.onclick = function () { //设置点击事件
+        var flag = this.checked;
+        // alert(flag); //把该flag的状态 给每一个check-one
+        for (var i = 0; i < checkOneList.length; i++) {
+            var checkOne = checkOneList[i]; //找到每一个
+            checkOne.checked = flag; //设置状态跟全选一样
+        }
+        count = flag ? maxCount : 0;
+        getTotalandPrice();
+    }
+
+    $(".tr").on("click", "checkbox", function () {
+        
+    });
 </script>
 
 </html>
