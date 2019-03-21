@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/toubu.css">
+</head>
+
+<body>
+    <div class="title">
+        <div class="center" style="border-bottom:1px solid;">
+            <div><a><img src="../images/1.jpg" style="width: 55px; height: 55px;" title="我是logo"></a></div>
+            <ul class="daohang">
+                <li class="dh_1">
+                    <a href="html/goodslist.html" class="dh_11">礼物分类</a>
+                    <ul class="dh_2">
+                        <li><a href="html/goodslist.html">少女心饰</a></li>
+                        <li><a href="html/goodslist.html">萌萌美物</a></li>
+                        <li><a href="html/goodslist.html">为爱停留</a></li>
+                        <li><a href="html/goodslist.html">潮流时尚</a></li>
+                        <li><a href="html/goodslist.html">科技达人</a></li>
+                        <li><a href="html/goodslist.html">幸福烙印</a></li>
+                    </ul>
+                </li>
+                <li class="top_1">
+                    <a href="html/goodslist.html" class="top_11">送礼导航</a>
+                    <ul class="top_2">
+                        <li><a href="html/goodslist.html">公主女票 </a></li>
+                        <li><a href="html/goodslist.html">欧巴男票</a></li>
+                        <li><a href="html/goodslist.html">潮爸辣妈</a></li>
+                        <li><a href="html/goodslist.html">兄弟闺蜜</a> </li>
+                        <li><a href="html/goodslist.html">熊孩子</a></li>
+                        <li><a href="html/goodslist.html">生意伙伴</a></li>
+                    </ul>
+                </li>
+                <li><a>创意礼物</a></li>
+                <li><a>新品上架</a></li>
+                <li><a>愚人节礼物</a></li>
+            </ul>
+            <div class="dv">
+                <img src="../images/7.png" alt="" class="img_1">
+                <div id="userInfo" style="text-align: center;">
+                    <!-- leson <button>退出<button> -->
+                    <!-- 请登录 -->
+                </div>
+                <a href="html/myshopp.html"><img src="images/8.png" alt="" class="img_2"></a>
+            </div>
+            <div id="shoppingInfo" style="margin-top: 50px;">
+                <!-- 登录人的购物车相关信息 -->
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; height: 500px;">
+        <div style="margin: 10px auto;height: 500px;width: 500px; background-color: red;"></div>
+    </div>
+</body>
+<script src="../js/cookie.js"></script>
+<script src="../js/jquery-1.11.3.js"></script>
+<script>
+    var content = document.getElementById("content"); //元素生成目的地
+    var userInfoDiv = document.getElementById("userInfo");
+    var shoppingInfoDiv = document.getElementById("shoppingInfo");
+
+    //进行判断
+    var loginId = getCookie("loginId");
+    if (loginId) {
+        var loginName = getCookie("loginName");
+        userInfoDiv.innerHTML = `<span>${loginName}</span><span onclick="userExist()">退出</span>`;
+        showNum(); //显示已经登录用户的购买情况
+    } else {
+        userInfoDiv.innerHTML = `<span onclick="gotoLogin()">点击登录</span>`;
+    }
+
+    function gotomyshoppingcar(goodsid) {
+        // alert(goodsid); //session
+        //加入购物车 判断用户是否登录
+        var loginId = getCookie("loginId"); //获取用户登录的编号
+        if (loginId) {
+            //加入购物车的代码
+            //人买商品  如果买过了(查询) 就更新数量(更新)  没有买过新增一条(新增)
+            $.ajax({
+                type: "get",
+                url: "../php/gotomyshoppincar.php",
+                data: {
+                    userid: loginId,
+                    goodsid: goodsid,
+                    num: 1
+                },
+                dataType: "json",
+                success: function (obj) {
+                    if (obj["code"] == 1) {
+                        //加入成功
+                        if (confirm("加入成功 是否立即结算")) {
+                            window.location.href = "../html/myshopp.html";
+                        } else {
+                            showNum();
+                        }
+
+                    } else {
+                        alert(obj["msg"]);
+                    }
+
+                }
+            });
+
+        } else {
+            //返回登录页面
+            gotoLogin();
+        }
+    }
+
+    function gotoLogin() {
+        setCookie("backUrl", window.location.href, 7);
+        window.location.href = "../html/login.html";
+    }
+
+    function userExist() {
+        setCookie("loginId", "", -1);
+        setCookie("loginName", "", -1);
+        gotoLogin();
+    }
+
+    function showNum() {
+        $.ajax({
+            type: "get",
+            url: "../php/getusergoodsnum.php",
+            data: {
+                loginId: loginId
+            },
+            dataType: "json",
+            success: function (obj) {
+                if (obj["sum"] >= 1) {
+                    shoppingInfoDiv.innerHTML = `<a href="../html/myshopp.html">购物车有${obj["sum"]}件商品</a>`;
+                } else {
+                    shoppingInfoDiv.innerHTML = `<a>&nbsp;&nbsp;&nbsp;&nbsp;</a>`;
+                }
+                shoppingInfoDiv.style.display = "block";
+            }
+        });
+    }
+    $(document).on('click', '.tr', function () {
+        var id = $(this).attr("data-id")
+        window.location.href = "./googsinfo.html?id=" + id;
+    })
+</script>
+
+</html>

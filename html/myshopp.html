@@ -296,10 +296,28 @@
         count = flag ? maxCount : 0;
         getTotalandPrice();
     }
-
-    $(".tr").on("click", "checkbox", function () {
-        
+    var html = 0;
+    $(document).on("click", ".check-one", function () {
+        $(".check-one").each(function () {
+            if ($(this).prop("checked")) {
+                $(".total").html(html += $(this).parent().next().next().next().next().next()
+                    .html() * 1);
+            }
+        })
     });
+    var html1 = 0;
+    $(document).on("click", ".check-one", function () {
+        $(".check-one").each(function () {
+            if ($(this).prop("checked")) {
+                $("#selected").html(html1 += $(this).parent().next().next().next().next()
+                    .children(".count").val() * 1);
+            }
+        })
+    });
+
+    function getTotal() {
+        window.location.href = "../html/jiesuan.html"
+    }
 </script>
 
 </html>
