@@ -308,7 +308,7 @@
     var html1 = 0;
     $(document).on("click", ".check-one", function () {
         $(".check-one").each(function () {
-            if ($(this).prop("checked")) {
+            if ($(this).prop("checked")) {//选中
                 $("#selected").html(html1 += $(this).parent().next().next().next().next()
                     .children(".count").val() * 1);
             }

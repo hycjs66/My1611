@@ -8,6 +8,16 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/Reset.css">
     <link rel="stylesheet" href="../css/toubu.css">
+    <style>
+        select {
+            padding: 5px 0;
+        }
+
+        .outer {
+            width: 500px;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,11 +65,26 @@
         </div>
     </div>
     <div style="width: 100%; height: 500px;">
-        <div style="margin: 10px auto;height: 500px;width: 500px; background-color: red;"></div>
+        <div style="margin: 10px auto;height: 500px;width: 500px;">
+            <div class="outer">
+                <select name="province" id="province">
+                    <option value="请选择">请选择</option>
+                </select>
+                <select name="city" id="city">
+                    <option value="请选择">请选择</option>
+                </select>
+                <select name="town" id="town">
+                    <option value="请选择">请选择</option>
+                </select>
+            </div>
+        </div>
     </div>
 </body>
 <script src="../js/cookie.js"></script>
 <script src="../js/jquery-1.11.3.js"></script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="../js/area.js"></script>
+<script src="../js/select.js"></script>
 <script>
     var content = document.getElementById("content"); //元素生成目的地
     var userInfoDiv = document.getElementById("userInfo");
